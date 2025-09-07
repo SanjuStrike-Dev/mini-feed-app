@@ -27,7 +27,7 @@ const LoginPage = () => {
     // Allow only numbers, spaces, +, -, (, )
     const numericValue = value.replace(/[^0-9+\-() ]/g, '');
     
-    const limitedValue = numericValue.length > 15 ? numericValue.slice(0, 15) : numericValue;
+    const limitedValue = numericValue.length > 10 ? numericValue.slice(0, 10) : numericValue;
     setMobile(limitedValue);
     
     const digitCount = limitedValue.replace(/[^0-9]/g, '').length;
@@ -112,33 +112,33 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      {/* App Name - Outside Container */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-[glow_2s_ease-in-out_infinite_alternate]">
           Mini Feed
         </h1>
       </div>
       
-      <div className="max-w-md w-full">
-        {/* Modern Card Container */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="mx-auto h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
-              <ChatBubbleLeftRightIcon className="h-6 w-6 text-white" />
+      <div className="max-w-md w-full relative z-10">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/40 p-8 relative overflow-hidden group hover:bg-white/90 transition-all duration-500">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/10 via-transparent to-pink-500/10 p-[1px]">
+            <div className="w-full h-full bg-white/90 rounded-3xl"></div>
+          </div>
+          <div className="text-center mb-6 relative z-10">
+            <div className="mx-auto h-12 w-12 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-4 relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+              <ChatBubbleLeftRightIcon className="h-6 w-6 text-white relative z-10" />
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
               {isLogin ? 'Welcome Back!' : 'Join Us!'}
             </h2>
-            <p className="text-sm sm:text-base text-gray-600">
+            <p className="text-slate-600 text-sm">
               {isLogin ? 'Sign in to continue sharing' : 'Create your account to get started'}
             </p>
           </div>
           
-          {/* Form */}
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Mobile Number Input */}
+          <form className="space-y-4 relative z-10" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label htmlFor="mobile" className="block text-sm font-semibold text-gray-700">
                 Mobile Number
@@ -153,10 +153,10 @@ const LoginPage = () => {
                     value={mobile}
                     onChange={handleMobileChange}
                     maxLength={15}
-                    className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50/50 ${
+                    className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-900 placeholder-gray-500 ${
                       mobileError 
-                        ? 'border-red-500 focus:ring-red-500' 
-                        : 'border-gray-200 focus:ring-indigo-500'
+                        ? 'border-red-400 focus:ring-red-400' 
+                        : 'border-gray-200 focus:ring-indigo-400 hover:border-gray-300'
                     }`}
                     placeholder="Enter Mobile Number"
                   />
@@ -172,7 +172,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Name Input (Registration only) */}
             {!isLogin && (
               <div className="space-y-2 mt-4">
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700">
@@ -186,7 +185,7 @@ const LoginPage = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50/50"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-900 placeholder-gray-500 hover:border-gray-300"
                     placeholder="Enter Name"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -198,7 +197,6 @@ const LoginPage = () => {
               </div>
             )}
 
-            {/* OTP Input (Login only) */}
             {isLogin && (
               <div className="space-y-2 mt-4">
                 <label htmlFor="otp" className="block text-sm font-semibold text-gray-700">
@@ -213,10 +211,10 @@ const LoginPage = () => {
                     value={otp}
                     onChange={handleOtpChange}
                     maxLength={6}
-                    className={`w-full px-4 py-3 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50/50 ${
+                    className={`w-full px-4 py-3 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-900 placeholder-gray-500 ${
                       otpError 
-                        ? 'border-red-500 focus:ring-red-500' 
-                        : 'border-gray-200 focus:ring-indigo-500'
+                        ? 'border-red-400 focus:ring-red-400' 
+                        : 'border-gray-200 focus:ring-indigo-400 hover:border-gray-300'
                     }`}
                     placeholder="Enter 6-digit code"
                   />
@@ -242,12 +240,12 @@ const LoginPage = () => {
               </div>
             )}
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-400 hover:via-purple-400 hover:to-pink-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               {isSubmitting ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
@@ -264,14 +262,13 @@ const LoginPage = () => {
             </button>
           </form>
 
-          {/* Toggle Mode */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 text-center relative z-10">
             <p className="text-sm text-gray-600">
               {isLogin ? "Don't have an account? " : 'Already have an account? '}
               <button
                 type="button"
                 onClick={toggleMode}
-                className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
+                className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors duration-300 hover:underline"
               >
                 {isLogin ? 'Sign up' : 'Sign in'}
               </button>
@@ -279,8 +276,7 @@ const LoginPage = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-8 text-center">
+        <div className="mt-12 text-center relative z-10">
           <p className="text-xs text-gray-500">
             By continuing, you agree to our Terms of Service and Privacy Policy
           </p>
